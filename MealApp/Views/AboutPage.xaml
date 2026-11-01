@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.AboutPage"
+             Title="Über die App">
+
+    <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center">
+
+        <Image Source="mealpageicon.svg"
+               HeightRequest="100"
+               WidthRequest="100"
+               Margin="0,30,0,0"/>
+
+        <Label Text="MealApp"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Label x:Name="VersionLabel"
+               TextColor="Gray"
+               HorizontalOptions="Center"/>
+
+        <Label Text="Entwickelt von Leon Z."
+               HorizontalOptions="Center"
+               Margin="0,20,0,0"/>
+
+        <Label Text="© 2026"
+               TextColor="Gray"
+               FontSize="12"
+               HorizontalOptions="Center"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>

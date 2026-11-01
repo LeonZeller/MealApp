@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MealApp.Converters"
+             x:Class="MealApp.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"
+                                         TrueColor="#C0533A"
+                                         FalseColor="#E1E1E1"/>
+        <converters:ImagePathConverter x:Key="ImagePathConverter"/>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="🔍"
+                     Order="Primary"
+                     Priority="0"
+                     Clicked="OnSearchClicked"/>
+        <ToolbarItem Text="+ Hinzufügen"
+                     Order="Primary"
+                     Priority="1"
+                     Clicked="OnAddClicked"/>
+        <ToolbarItem Text="⚙"
+                     Order="Primary"
+                     Priority="2"
+                     Clicked="OnSettingsClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <!-- Tab Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,0,0,5">
+                <Button Grid.Column="0"
+                        Text="🍽️ Gerichte"
+                        Command="{Binding ShowMealsCommand}"
+                        BackgroundColor="{Binding IsComponentView, Converter={StaticResource BoolToColorConverter}, ConverterParameter=inverse}"
+                        TextColor="White"
+                        CornerRadius="8"/>
+                <Button Grid.Column="1"
+                        Text="🧩 Komponenten"
+                        Command="{Binding ShowComponentsCommand}"
+                        BackgroundColor="{Binding IsComponentView, Converter={StaticResource BoolToColorConverter}}"
+                        TextColor="White"
+                        CornerRadius="8"/>
+            </Grid>
+
+            <!-- Aktive Filter Chip -->
+            <Border StrokeShape="RoundRectangle 20"
+                    Stroke="#C0533A"
+                    StrokeThickness="1"
+                    Padding="12,6"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding HasActiveFilters}"
+                    Margin="0,0,0,5">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClearFiltersCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="{Binding ActiveFiltersLabel, StringFormat='{0}  ✕'}"
+                       FontSize="12"
+                       TextColor="#C0533A"/>
+            </Border>
+
+            <!-- Suchbereich -->
+            <VerticalStackLayout IsVisible="{Binding IsSearchVisible}" Spacing="10">
+                <Entry Placeholder="Nach Name suchen..."
+                       Text="{Binding SearchText}"/>
+                <Entry Placeholder="Zutat suchen..."
+                       Text="{Binding IngredientText}"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="Nur vegan" VerticalOptions="Center"/>
+                    <Switch IsToggled="{Binding OnlyVegan}"/>
+                </HorizontalStackLayout>
+                <Label Text="{Binding MaxPrepTime, StringFormat='Max. {0} Minuten'}"/>
+                <Slider Minimum="5"
+                        Maximum="180"
+                        Value="{Binding MaxPrepTime}"/>
+            </VerticalStackLayout>
+
+            <!-- Empty State -->
+            <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10"
+                                 Padding="20,60,20,20">
+                <Label Text="🍽️"
+                       FontSize="60"
+                       HorizontalOptions="Center"/>
+                <Label Text="Noch keine Einträge"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#2E2723"/>
+                <Label Text="Tippe auf + um deinen ersten Eintrag anzulegen"
+                       FontSize="14"
+                       TextColor="#7A6E64"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Liste -->
+            <VerticalStackLayout x:Name="MealsContainer" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Bearbeiten"
+                                               BackgroundColor="DodgerBlue"
+                                               Invoked="OnEditSwiped"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Löschen"
+                                               BackgroundColor="Red"
+                                               Invoked="OnDeleteSwiped"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Border StrokeShape="RoundRectangle 12"
+                                    Stroke="LightGray"
+                                    StrokeThickness="0.5"
+                                    Padding="0"
+                                    BackgroundColor="White">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnMealButtonClicked"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid RowDefinitions="160, Auto">
+                                    <Image Grid.Row="0"
+                                           Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
+                                           Aspect="AspectFill"
+                                           BackgroundColor="LightGray"/>
+                                    <Grid Grid.Row="1" Padding="14,12" ColumnDefinitions="*, Auto">
+                                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"/>
+                                            <Label Text="{Binding PreperationTime, StringFormat='⏱ {0} Minuten'}"
+                                                   FontSize="13"
+                                                   TextColor="Gray"/>
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="1"
+                                               Text="🌱"
+                                               IsVisible="{Binding Vegan}"
+                                               VerticalOptions="Center"
+                                               FontSize="20"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.AddMealPage"
+             Title="Neues Gericht">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Name" FontAttributes="Bold"/>
+            <Entry x:Name="NameEntry"
+                   Text="{Binding Name}"
+                   Placeholder="z.B. Spaghetti Bolognese"/>
+            
+            <Label Text="Zubereitungszeit (Minuten)" FontAttributes="Bold"/>
+            <Entry x:Name="PrepTimeEntry"
+                   Text="{Binding PrepTime}"
+                   Placeholder="z.B. 30"
+                   Keyboard="Numeric"/>
+
+            <Label Text="Bild" FontAttributes="Bold"/>
+            <Image x:Name="MealImage"
+                Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
+                HeightRequest="200"
+                Aspect="AspectFill"
+                BackgroundColor="LightGray"/>
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Bild auswählen"
+                    Clicked="OnPickImageClicked"
+                    HorizontalOptions="Fill"/>
+                <Button Text="Bild entfernen"
+                    Clicked="OnRemoveImageClicked"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    HorizontalOptions="Fill"
+                    IsVisible="{Binding HasImage}"/>
+            </HorizontalStackLayout>
+
+            <Label Text="Zubereitungsschritte" FontAttributes="Bold"/>
+            <Label Text="Jeden Schritt in eine neue Zeile schreiben" TextColor="Gray" FontSize="12"/>
+            <Editor x:Name="StepsEntry"
+                    Text="{Binding Steps}"
+                    Placeholder="z.B. Nudeln kochen..."
+                    AutoSize="TextChanges"
+                    MinimumHeightRequest="150"/>
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Vegan" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Switch x:Name="VeganSwitch" IsToggled="{Binding Vegan}"/>
+            </HorizontalStackLayout>
+
+            <Label Text="Zutaten" FontAttributes="Bold"/>
+            <VerticalStackLayout x:Name="IngredientsStack" Spacing="10"/>
+
+            <Button Text="+ Zutat hinzufügen"
+                    Clicked="OnAddIngredientClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="#C0533A"
+                    BorderColor="#C0533A"
+                    BorderWidth="1"
+                    HorizontalOptions="Fill"/>  
+
+            <Button Text="Speichern"
+                    Clicked="OnSaveClicked"
+                    HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,44 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MealApp"
+             xmlns:converters="clr-namespace:MealApp.Converters"             
+             xmlns:behaviors="clr-namespace:MealApp.Behaviors"
+             x:Class="MealApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="AppPrimary">#C0533A</Color>
+            <Color x:Key="AppPrimaryLight">#E58775</Color>
+            <Color x:Key="AppPrimaryDark">#8B3A28</Color>
+            <Color x:Key="AppAccent">#6B8E4E</Color>
+            <Color x:Key="AppBackground">#F5EFE0</Color>
+            <Color x:Key="AppTextPrimary">#2E2723</Color>
+            <Color x:Key="AppTextSecondary">#7A6E64</Color>
+
+            <Style TargetType="Entry">
+                <Setter Property="MaxLength" Value="500"/>
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="MaxLength" Value="5000"/>
+            </Style>
+
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Style.Behaviors>
+                    <behaviors:DismissKeyboardOnTapBehavior/>
+                </Style.Behaviors>
+            </Style>
+
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"
+                                             TrueColor="#C0533A"
+                                             FalseColor="#E1E1E1"/>   
+            <converters:ImagePathConverter x:Key="ImagePathConverter"/>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

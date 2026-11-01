@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.ShoppingListPage"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="⚙"
+         Order="Primary"
+         Priority="0"
+         Clicked="OnSettingsClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20">
+
+        <Label Grid.Row="0"
+               Text="{Binding WeekLabel}"
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="Center"
+               Margin="0,0,0,15"/>
+
+        <VerticalStackLayout Grid.Row="1"
+                     IsVisible="{Binding IsEmpty}"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     Spacing="10"
+                     Padding="20">
+            <Label Text="🛒"
+           FontSize="60"
+           HorizontalOptions="Center"/>
+            <Label Text="Einkaufsliste ist leer"
+           FontSize="18"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           TextColor="#2E2723"/>
+            <Label Text="Plane Mahlzeiten im Kalender oder füge eigene Artikel hinzu"
+           FontSize="14"
+           TextColor="#7A6E64"
+           HorizontalOptions="Center"
+           HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1" IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBooleanConverter}}">
+            <VerticalStackLayout x:Name="ShoppingListContainer" Spacing="8">
+                <BindableLayout.ItemsSource>
+                    <Binding Path="ShoppingItems"/>
+                </BindableLayout.ItemsSource>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Bearbeiten"
+                                               BackgroundColor="DodgerBlue"
+                                               Invoked="OnEditItemSwiped"
+                                               IsVisible="{Binding IsCustom}"/>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Löschen"
+                                               BackgroundColor="Red"
+                                               Invoked="OnDeleteItemSwiped"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Border StrokeShape="RoundRectangle 8"
+                                    Stroke="LightGray"
+                                    StrokeThickness="0.5"
+                                    Padding="12,10">
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
+                                    <CheckBox Grid.Column="0"
+                                              IsChecked="{Binding IsChecked}"
+                                              CheckedChanged="OnItemChecked"
+                                              VerticalOptions="Center"/>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="15"/>
+                                        <Label Text="{Binding DisplayAmount}"
+                                               FontSize="12"
+                                               TextColor="Gray"/>
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2"
+                                           Text="📌"
+                                           IsVisible="{Binding IsCustom}"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Grid.Row="2"
+                Text="+ Artikel hinzufügen"
+                Clicked="OnAddItemClicked"
+                HorizontalOptions="Fill"
+                Margin="0,15,0,0"/>
+
+    </Grid>
+
+</ContentPage>

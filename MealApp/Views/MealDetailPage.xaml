@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.MealDetailPage"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+                        
+            <Image Source="{Binding Meal.ImagePath, Converter={StaticResource ImagePathConverter}}"
+               Aspect="AspectFill"
+               HeightRequest="250"
+               Margin="0,0,0,0"/>
+
+            <Label Text="{Binding Meal.Name}" 
+               FontSize="28" 
+               FontAttributes="Bold"/>
+            <Label Text="🌱 Dieses Gericht ist vegan!"
+                   IsVisible="{Binding Meal.Vegan}"/>
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="⏱ Zubereitungszeit:" FontAttributes="Bold"/>
+                <Label Text="{Binding Meal.PreperationTime, StringFormat='{0} Minuten'}"/>
+            </HorizontalStackLayout>
+
+            <Label Text="🧂 Zutaten:" FontAttributes="Bold"/>
+            <VerticalStackLayout x:Name="IngredientsContainer" Spacing="5">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
+                            <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                            <Label Grid.Column="1" Text="{Binding Amount}"
+                                   VerticalOptions="Center" TextColor="Gray"/>
+                            <Label Grid.Column="2" Text="{Binding Unit}"
+                                   VerticalOptions="Center" TextColor="Gray"/>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Label Text="📋 Zubereitung:" FontAttributes="Bold"/>
+            <VerticalStackLayout x:Name="StepsContainer" Spacing="8"/>
+
+            <Button Text="Kochen starten"
+                    Clicked="OnStartCookingClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MealApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MealApp"
+    xmlns:pages="clr-namespace:MealApp.Views"
+    Title="MealApp">
+
+    
+
+    <TabBar Shell.TabBarBackgroundColor="#F5EFE0"
+        Shell.TabBarForegroundColor="#C0533A"
+        Shell.TabBarTitleColor="#C0533A"
+        Shell.TabBarUnselectedColor="#7A6E64">
+
+        <Tab Title="Gerichte" Icon="mealpageicon.svg">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+        <Tab Title="Kalender" Icon="calendarpageicon.svg">
+            <ShellContent ContentTemplate="{DataTemplate pages:CalendarPage}"/>
+        </Tab>
+        <Tab Title="Einkaufsliste" Icon="cartpageicon.svg">
+            <ShellContent ContentTemplate="{DataTemplate pages:ShoppingListPage}"/>
+        </Tab>
+        
+    </TabBar>
+
+</Shell>

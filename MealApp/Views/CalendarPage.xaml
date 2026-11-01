@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
+             xmlns:local="clr-namespace:MealApp.Controls"
+             xmlns:vm="clr-namespace:MealApp.ViewModels"
+             xmlns:converters="clr-namespace:MealApp.Converters"
+             x:Class="MealApp.Views.CalendarPage"
+             Title="Kalender">
+
+    <ContentPage.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="⚙"
+         Order="Primary"
+         Priority="0"
+         Clicked="OnSettingsClicked"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Tab Buttons -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,*" Margin="20,10">
+            <Button Text="📅 Kalender"
+                    Clicked="OnCalendarTabClicked"
+                    BackgroundColor="{Binding IsCalendarView, Converter={StaticResource BoolToColorConverter}}"
+                    TextColor="White"
+                    Grid.Column="0"
+                    CornerRadius="8"/>
+            <Button Text="📋 Tagesansicht"
+                    Clicked="OnDayTabClicked"
+                    BackgroundColor="{Binding IsCalendarView, Converter={StaticResource BoolToColorConverter}, ConverterParameter=inverse}"
+                    TextColor="White"
+                    Grid.Column="1"
+                    CornerRadius="8"/>
+        </Grid>
+
+        <!-- Kalenderansicht -->
+        <ScrollView Grid.Row="1" IsVisible="{Binding IsCalendarView}">
+            <VerticalStackLayout Spacing="15" Padding="20">
+                <local:CustomCalendar Dots="{Binding CalendarDots, Mode=OneWay}"
+                                      SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                      DateTapped="OnDateTapped"
+                                      DateDoubleTapped="OnDateDoubleTapped"/>
+                <Button Text="+ Mahlzeit hinzufügen"
+                        x:Name="AddMealButton"
+                        IsEnabled="{Binding IsAddButtonEnabled}"
+                        Clicked="OnAddMealClicked"
+                        HorizontalOptions="Fill"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Tagesansicht -->
+        <Grid Grid.Row="1"
+      IsVisible="{Binding IsCalendarView, Converter={StaticResource InverseBoolConverter}}"
+      RowDefinitions="Auto, *"
+      Padding="20">
+
+            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="0,0,0,10">
+                <Button Grid.Column="0"
+                Text="◀"
+                Clicked="OnPreviousDayClicked"
+                BackgroundColor="Transparent"
+                TextColor="#C0533A"
+                FontSize="24"
+                Padding="10,0"/>
+                <Label Grid.Column="1"
+               Text="{Binding CurrentDay.DayLabel}"
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+                <Button Grid.Column="2"
+                Text="▶"
+                Clicked="OnNextDayClicked"
+                BackgroundColor="Transparent"
+                TextColor="#C0533A"
+                FontSize="24"
+                Padding="10,0"/>
+            </Grid>
+
+            <ScrollView Grid.Row="1">
+                <local:DayTimelineView Entries="{Binding CurrentDay.Entries, Mode=OneWay}"
+                               EntryTapped="OnEntryTapped"/>
+            </ScrollView>
+
+        </Grid>
+    </Grid>
+</ContentPage>

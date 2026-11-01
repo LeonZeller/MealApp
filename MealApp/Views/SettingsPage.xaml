@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.SettingsPage"
+             Title="Einstellungen">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <Border StrokeShape="RoundRectangle 8" Stroke="LightGray" StrokeThickness="0.5" Padding="0">
+                <VerticalStackLayout>
+                    
+
+                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+
+                    <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAppearanceTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Column="0" Text="🎨" FontSize="24" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Erscheinungsbild" VerticalOptions="Center" FontSize="15"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+
+                    <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPeopleTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Column="0" Text="👥" FontSize="24" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Personen einladen" VerticalOptions="Center" FontSize="15"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+
+                    <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackupTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Column="0" Text="💾" FontSize="24" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Datenexport &amp; Backup" VerticalOptions="Center" FontSize="15"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                    </Grid>
+
+                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+
+                    <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAboutTapped"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Column="0" Text="ℹ️" FontSize="24" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Über die App" VerticalOptions="Center" FontSize="15"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

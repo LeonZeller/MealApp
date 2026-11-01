@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Popups.CustomPopup"
+             BackgroundColor="#80000000">
+
+    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+        <Border StrokeShape="RoundRectangle 16"
+                Stroke="Transparent"
+                BackgroundColor="White"
+                Padding="20"
+                WidthRequest="300">
+
+            <VerticalStackLayout Spacing="15">
+
+                <Label x:Name="IconLabel"
+                       FontSize="40"
+                       HorizontalOptions="Center"/>
+
+                <Label x:Name="TitleLabel"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="#2E2723"/>
+
+                <Label x:Name="MessageLabel"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="#7A6E64"/>
+
+                <VerticalStackLayout x:Name="ButtonContainer" Spacing="8" Margin="0,10,0,0"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+    </Grid>
+
+</ContentPage>

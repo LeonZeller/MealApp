@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MealApp.Views.ShoppingItemDetailPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Name" FontAttributes="Bold"/>
+            <Entry Text="{Binding Name}"
+                   Placeholder="z.B. Toilettenpapier"/>
+
+            <Label Text="Menge" FontAttributes="Bold"/>
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Entry Grid.Column="0"
+                       Text="{Binding Amount}"
+                       Placeholder="z.B. 1"
+                       Keyboard="Numeric"/>
+                <Picker Grid.Column="1"
+                        ItemsSource="{Binding Units}"
+                        SelectedItem="{Binding SelectedUnit}"
+                        Title="Einheit"/>
+            </Grid>
+
+            <Label Text="Wie oft?" FontAttributes="Bold"/>
+            <Picker ItemsSource="{Binding IntervalOptions}"
+                    SelectedItem="{Binding SelectedInterval}"
+                    ItemDisplayBinding="{Binding Label}"
+                    Title="Intervall"/>
+
+            <Button Text="Speichern"
+                    Command="{Binding SaveCommand}"
+                    HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
