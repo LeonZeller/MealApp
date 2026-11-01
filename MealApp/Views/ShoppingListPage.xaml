@@ -41,7 +41,7 @@
            HorizontalTextAlignment="Center"/>
         </VerticalStackLayout>
 
-        <ScrollView Grid.Row="1" IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBooleanConverter}}">
+        <ScrollView Grid.Row="1" IsVisible="{Binding IsEmpty, Converter={StaticResource InverseBoolConverter}}">
             <VerticalStackLayout x:Name="ShoppingListContainer" Spacing="8">
                 <BindableLayout.ItemsSource>
                     <Binding Path="ShoppingItems"/>

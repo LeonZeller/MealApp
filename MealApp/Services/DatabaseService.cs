@@ -5,7 +5,7 @@ namespace MealApp.Services
 {
     public class DatabaseService
     {
-        private SQLiteAsyncConnection? database;
+        
 
         public async Task InitializeAsync()
         {
@@ -102,5 +102,7 @@ namespace MealApp.Services
             await database!.DeleteAsync(item);
             
         }
+
+        private SQLiteAsyncConnection? database;
     }
 }
