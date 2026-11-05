@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MealApp.ViewModels
 {
@@ -63,10 +64,11 @@ namespace MealApp.ViewModels
         {
             var today = DateTime.Today;
             int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
-            var monday = today.AddDays(-diff);
+            var monday = today.AddDays(-diff).AddDays(currentWeek * 7);
             var sunday = monday.AddDays(6);
 
-            WeekLabel = $"KW {monday:dd.MM} - {sunday:dd.MM.yyyy}";
+            int weekNumber = ISOWeek.GetWeekOfYear(monday);
+            WeekLabel = $"KW {weekNumber}: {monday:dd.MM} - {sunday:dd.MM.yyyy}";
 
             ShoppingItems.Clear();
 
@@ -119,6 +121,7 @@ namespace MealApp.ViewModels
 
         private readonly CalendarService calendarService;
         private readonly ShoppingService shoppingService;
+        private int currentWeek = 0;
 
     }
 }
