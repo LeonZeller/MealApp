@@ -58,13 +58,14 @@ namespace MealApp.ViewModels
         {
             await calendarService.LoadEntriesAsync();
             await shoppingService.LoadAsync();
+            weekOffset = 0;
             buildShoppingList();
         }
         private void buildShoppingList()
         {
             var today = DateTime.Today;
             int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
-            var monday = today.AddDays(-diff).AddDays(currentWeek * 7);
+            var monday = today.AddDays(-diff).AddDays(weekOffset * 7);
             var sunday = monday.AddDays(6);
 
             int weekNumber = ISOWeek.GetWeekOfYear(monday);
@@ -116,12 +117,20 @@ namespace MealApp.ViewModels
                 ShoppingItems.Add(item);
             }
         }
+
+        [RelayCommand]
+        private void ChangeWeek(int offset)
+        {
+            weekOffset += offset;
+            buildShoppingList();
+        }
+
         [ObservableProperty]
         private string weekLabel = string.Empty;
 
         private readonly CalendarService calendarService;
         private readonly ShoppingService shoppingService;
-        private int currentWeek = 0;
+        private int weekOffset = 0;
 
     }
 }

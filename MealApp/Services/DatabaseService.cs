@@ -9,11 +9,15 @@ namespace MealApp.Services
 
         public async Task InitializeAsync()
         {
-            if (database != null) return;
+
+
+            if (database != null) return;            
 
             try
             {
-                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "meals.db");
+                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "meals.db");                
+
+                //if (File.Exists(dbPath)) File.Delete(dbPath); // TEMPORÄR: Datenbank leeren, danach wieder entfernen!                
 
                 database = new SQLiteAsyncConnection(dbPath);
                 await database.CreateTableAsync<Meal>();
@@ -29,6 +33,8 @@ namespace MealApp.Services
 
             }
         }
+
+        
 
         public async Task<List<Meal>> GetMealsAsync()
         {
