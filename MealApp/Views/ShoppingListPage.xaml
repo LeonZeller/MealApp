@@ -13,12 +13,37 @@
 
     <Grid RowDefinitions="Auto, *, Auto" Padding="20">
 
-        <Label Grid.Row="0"
-               Text="{Binding WeekLabel}"
-               FontAttributes="Bold"
-               FontSize="18"
-               HorizontalOptions="Center"
-               Margin="0,0,0,15"/>
+        <Grid ColumnDefinitions="Auto,*,Auto"
+      ColumnSpacing="8"
+      Margin="0,0,0,8">
+
+            <!-- Links: eine Woche zurück -->
+            <Button Grid.Column="0"
+            Text="◀"
+            WidthRequest="48"
+            Command="{Binding ChangeWeekCommand}">
+                <Button.CommandParameter>
+                    <x:Int32>-1</x:Int32>
+                </Button.CommandParameter>
+            </Button>
+
+            <!-- Mitte: KW und Datum -->
+            <Label Grid.Column="1"
+           Text="{Binding WeekLabel}"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           FontAttributes="Bold" />
+
+            <!-- Rechts: eine Woche vor -->
+            <Button Grid.Column="2"
+            Text="▶"
+            WidthRequest="48"
+            Command="{Binding ChangeWeekCommand}">
+                <Button.CommandParameter>
+                    <x:Int32>1</x:Int32>
+                </Button.CommandParameter>
+            </Button>
+        </Grid>
 
         <VerticalStackLayout Grid.Row="1"
                      IsVisible="{Binding IsEmpty}"
