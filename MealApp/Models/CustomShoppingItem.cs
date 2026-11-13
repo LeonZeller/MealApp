@@ -29,7 +29,11 @@ namespace MealApp.Models
                 return true;
             }
 
-            var weeksSinceLastBought = (int)((weekStart - LastBoughtDate.Value).TotalDays / 7);
+            var boughtWeekMonday = LastBoughtDate.Value.Date;
+            int diff = (7 + (boughtWeekMonday.DayOfWeek - DayOfWeek.Monday)) % 7;
+            var monday = boughtWeekMonday.AddDays(-diff);
+
+            var weeksSinceLastBought = (int)((weekStart - monday).TotalDays / 7);
             return weeksSinceLastBought >= IntervalWeeks;
         }
     }
