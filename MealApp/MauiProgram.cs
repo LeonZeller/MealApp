@@ -19,6 +19,8 @@ namespace MealApp
             builder.Services.AddSingleton<CalendarPage>();
             builder.Services.AddSingleton<ShoppingListPage>();
             builder.Services.AddSingleton<ShoppingService>();           
+            builder.Services.AddTransient<SettingsPage>();
+            builder.Services.AddTransient<BackupSettingsPage>();
             builder.UseMauiApp<App>().UseWheelPicker();
             return builder.Build();
         }

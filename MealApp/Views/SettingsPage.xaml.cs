@@ -5,14 +5,11 @@ namespace MealApp.Views;
 
 public partial class SettingsPage : ContentPage
 {
-	public SettingsPage()
+	public SettingsPage(BackupSettingsPage backupSettingsPage)
 	{
 		InitializeComponent();
+        this.backupSettingsPage = backupSettingsPage;
     }
-
-	
-
-
 
     private async void OnAppearanceTapped(object sender, TappedEventArgs e)
     {
@@ -26,7 +23,7 @@ public partial class SettingsPage : ContentPage
 
     private async void OnBackupTapped(object sender, TappedEventArgs e)
     {
-        await Navigation.PushAsync(new BackupSettingsPage());
+        await Navigation.PushAsync(backupSettingsPage);
     }   
 
     private async void OnAboutTapped(object sender, TappedEventArgs e)
@@ -34,5 +31,5 @@ public partial class SettingsPage : ContentPage
         await Navigation.PushAsync(new AboutPage());
     }
 
-    
+    private BackupSettingsPage backupSettingsPage;
 }

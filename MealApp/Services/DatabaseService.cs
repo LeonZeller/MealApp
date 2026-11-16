@@ -14,9 +14,7 @@ namespace MealApp.Services
             if (database != null) return;            
 
             try
-            {
-                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "meals.db");                
-
+            {                
                 //if (File.Exists(dbPath)) File.Delete(dbPath); // TEMPORÄR: Datenbank leeren, danach wieder entfernen!                
 
                 database = new SQLiteAsyncConnection(dbPath);
@@ -109,6 +107,40 @@ namespace MealApp.Services
             
         }
 
+        public async Task ExportAsync()
+        {
+            await InitializeAsync();
+
+            await database.ExecuteScalarAsync<int>("PRAGMA wal_checkpoint(TRUNCATE)");
+
+            string fileName = $"MealApp-Backup-{DateTime.Now:yyyy-MM-dd}.db3";
+            string backupPath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+            File.Copy(dbPath, backupPath, true);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "MealApp-Backup speichern",
+                File = new ShareFile(backupPath)
+            });
+        }
+
+        public async Task ImportAsync(string importFilePath)
+        {
+            await InitializeAsync();
+            if (!File.Exists(importFilePath))
+            {
+                throw new FileNotFoundException("Die Importdatei wurde nicht gefunden.", importFilePath);
+            }
+            // Close the current database connection
+            await database.CloseAsync();
+            // Replace the current database file with the imported file
+            File.Copy(importFilePath, dbPath, true);
+            // Re-initialize the database connection
+            database = new SQLiteAsyncConnection(dbPath);
+        }
+
         private SQLiteAsyncConnection? database;
+        private string dbPath = Path.Combine(FileSystem.AppDataDirectory, "meals.db");
     }
 }
