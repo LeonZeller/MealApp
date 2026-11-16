@@ -32,7 +32,9 @@ public partial class BackupSettingsPage : ContentPage
 			{
 				PickerTitle = "Backup auswählen",
 			});
-		}
+
+			await databaseService.ImportAsync(result.FullPath);
+        }
 		catch (Exception ex)
 		{
 
