@@ -229,9 +229,16 @@ public partial class AddMealPage : ContentPage
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
-        await saveMeal();
+        try
+        {
+            await saveMeal();
+        }
+        catch (Exception ex)
+        {
+            await PopupService.ShowErrorAsync("Fehler", "Gericht konnte nicht gespeichert werden: " + ex.Message);
+        }
     }
-    
+
     private readonly AddMealViewModel viewModel;
     private readonly List<(Entry NameEntry, Entry AmountEntry, Picker UnitPicker)> ingredientEntries = new();
 

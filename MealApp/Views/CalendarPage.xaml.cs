@@ -18,52 +18,67 @@ public partial class CalendarPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await viewModel.loadEntriesCommand.ExecuteAsync(null);
-
-        if (!viewModel.IsCalendarView)
+        try
         {
-            viewModel.ResetToToday();
+            await viewModel.loadEntriesCommand.ExecuteAsync(null);
+
+            if (!viewModel.IsCalendarView)
+            {
+                viewModel.ResetToToday();
+            }
+        }
+        catch (Exception ex)
+        {
+            await PopupService.ShowErrorAsync("Fehler", "Kalender konnte nicht geladen werden: " + ex.Message);
         }
     }
 
     private async void OnAddMealClicked(object sender, EventArgs e)
     {
-        if (viewModel.SelectedDate == null) return;
-
-        var popup = new TimePickerPopup(new TimeSpan(18, 0, 0));
-        await Navigation.PushModalAsync(popup);
-        var result = await popup.ResultTask.Task;
-
-        if (result == null) return;
-        await Task.Delay(200);
-
-        var mealNames = viewModel.GetMealNames();
-        if (mealNames.Length == 0)
+        try
         {
-            await PopupService.ShowErrorAsync("Hinweis", "Keine Gerichte vorhanden.");
-            return;
-        }
+            if (viewModel.SelectedDate == null) return;
 
-        var options = mealNames.Select(name => (name, name, false)).ToList();
-        var selectedMealName = await PopupService.ShowAsync(
-            "Gericht auswählen", null, "🍽️", options);
+            var popup = new TimePickerPopup(new TimeSpan(18, 0, 0));
+            await Navigation.PushModalAsync(popup);
+            var result = await popup.ResultTask.Task;
 
-        if (selectedMealName == "Abbrechen" || selectedMealName == null) return;
+            if (result == null) return;
+            await Task.Delay(200);
 
-        var meal = viewModel.GetMealByName(selectedMealName);
-        if (meal == null) return;
-
-        await viewModel.SaveEntry(meal, result.Time, result.Persons);
-
-        await PopupService.ShowInfoAsync(Title,
-            viewModel.GetSavedAlertMessage(meal, result.Time, new CalendarEntry
+            var mealNames = viewModel.GetMealNames();
+            if (mealNames.Length == 0)
             {
-                Date = viewModel.SelectedDate!.Value.Date,
-                ServingTime = result.Time,
-                Meal = meal
-                
-            }),
-            "✅");
+                await PopupService.ShowErrorAsync("Hinweis", "Keine Gerichte vorhanden.");
+                return;
+            }
+
+            var options = mealNames.Select(name => (name, name, false)).ToList();
+            var selectedMealName = await PopupService.ShowAsync(
+                "Gericht auswählen", null, "🍽️", options);
+
+            if (selectedMealName == "Abbrechen" || selectedMealName == null) return;
+
+            var meal = viewModel.GetMealByName(selectedMealName);
+            if (meal == null) return;
+
+            await viewModel.SaveEntry(meal, result.Time, result.Persons);
+
+            await PopupService.ShowInfoAsync(Title,
+                viewModel.GetSavedAlertMessage(meal, result.Time, new CalendarEntry
+                {
+                    Date = viewModel.SelectedDate!.Value.Date,
+                    ServingTime = result.Time,
+                    Meal = meal
+
+                }),
+                "✅");
+        }
+        catch (Exception ex)
+        {
+
+            await PopupService.ShowErrorAsync("Fehler", "Eintrag konnte nicht geladen werden: " + ex.Message);
+        }
     }
 
     private void OnCalendarTabClicked(object sender, EventArgs e)

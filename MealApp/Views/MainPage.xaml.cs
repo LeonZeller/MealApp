@@ -2,6 +2,7 @@
 using MealApp.Services;
 using MealApp.ViewModels;
 using MealApp.Views;
+using Microsoft.Maui.Platform;
 
 namespace MealApp
 {
@@ -19,7 +20,15 @@ namespace MealApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await viewModel.LoadMealsCommand.ExecuteAsync(null);
+            try
+            {
+                await viewModel.LoadMealsCommand.ExecuteAsync(null);
+            }
+            catch (Exception ex)
+            {
+
+                await PopupService.ShowErrorAsync("Fehler", "Gerichte konnten nicht geladen werden: " + ex.Message);
+            }
         }
 
         private void OnSearchClicked(object sender, EventArgs e)
@@ -41,11 +50,19 @@ namespace MealApp
 
         private async void OnDeleteSwiped(object sender, EventArgs e)
         {
-            var swipeItem = (SwipeItem)sender;
-            var meal = (Meal)swipeItem.BindingContext;
-            bool confirm = await PopupService.ConfirmAsync("Löschen", $"{meal.Name} wirklich löschen?", "Ja", "Nein", "🗑️");
-            if (confirm)
-                await viewModel.DeleteMealCommand.ExecuteAsync(meal);
+            try
+            {
+                var swipeItem = (SwipeItem)sender;
+                var meal = (Meal)swipeItem.BindingContext;
+                bool confirm = await PopupService.ConfirmAsync("Löschen", $"{meal.Name} wirklich löschen?", "Ja", "Nein", "🗑️");
+                if (confirm)
+                    await viewModel.DeleteMealCommand.ExecuteAsync(meal);
+            }
+            catch (Exception ex)
+            {
+
+                await PopupService.ShowErrorAsync("Fehler", "Gerichte konnten nicht geladen werden: " + ex.Message);
+            }
         }
 
         private async void OnEditSwiped(object sender, EventArgs e)

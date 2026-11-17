@@ -56,8 +56,10 @@ namespace MealApp.ViewModels
         [RelayCommand]
         private async Task Load()
         {
-            await calendarService.LoadEntriesAsync();
-            await shoppingService.LoadAsync();
+            await Task.WhenAll(
+                calendarService.LoadEntriesAsync(),
+                shoppingService.LoadAsync());
+
             weekOffset = 0;
             buildShoppingList();
         }

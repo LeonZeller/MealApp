@@ -7,33 +7,36 @@ namespace MealApp.Services
 {
     public class DatabaseService
     {
-        
+
 
         public async Task InitializeAsync()
         {
+            if (database != null) return;
 
-
-            if (database != null) return;            
-
+            await initLock.WaitAsync().ConfigureAwait(false);
             try
-            {                
-                //if (File.Exists(dbPath)) File.Delete(dbPath); // TEMPORÄR: Datenbank leeren, danach wieder entfernen!                
+            {
+                if (database != null) return;
 
-                database = new SQLiteAsyncConnection(dbPath);
-                await database.CreateTableAsync<Meal>().ConfigureAwait(false);
-                await database.CreateTableAsync<CalendarEntry>().ConfigureAwait(false);
-                await database.CreateTableAsync<CustomShoppingItem>().ConfigureAwait(false);
+                var connection = new SQLiteAsyncConnection(dbPath);
+                await connection.CreateTableAsync<Meal>().ConfigureAwait(false);
+                await connection.CreateTableAsync<CalendarEntry>().ConfigureAwait(false);
+                await connection.CreateTableAsync<CustomShoppingItem>().ConfigureAwait(false);
+
+                database = connection;
             }
             catch (Exception ex)
             {
-
-                System.Diagnostics.Debug.WriteLine($"DB Init Fehler: {ex.Message}");                
-                database = null;
+                System.Diagnostics.Debug.WriteLine($"DB Init Fehler: {ex.Message}");
                 throw;
+            }
+            finally
+            {
+                initLock.Release();
             }
         }
 
-        
+
 
         public async Task<List<Meal>> GetMealsAsync()
         {
@@ -159,5 +162,6 @@ namespace MealApp.Services
 
         private SQLiteAsyncConnection? database;
         private string dbPath = Path.Combine(FileSystem.AppDataDirectory, "meals.db");
+        private readonly SemaphoreSlim initLock = new(1, 1);
     }
 }
