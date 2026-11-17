@@ -15,8 +15,14 @@ public partial class BackupSettingsPage : ContentPage
 	{
 		try
 		{
-			await databaseService.ExportAsync();
-		}
+			var file = await databaseService.ExportAsync();
+		
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "MealApp-Backup speichern",
+                File = new ShareFile(file)
+            });
+        }
 		catch (Exception ex)
 		{
 
