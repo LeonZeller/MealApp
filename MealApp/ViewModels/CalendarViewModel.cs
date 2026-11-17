@@ -117,6 +117,9 @@ namespace MealApp.ViewModels
         [RelayCommand]
         private async Task loadEntries()
         {
+
+            await calendarService.LoadEntriesAsync();
+            rebuildCalendarDots();
             OnPropertyChanged(nameof(CurrentDay));
         }
 
