@@ -18,8 +18,8 @@ namespace MealApp.ViewModels
 
         
 
-        public CalendarViewModel(MealServices mealServices, CalendarService calendarService,
-            ShoppingService shoppingService)
+        public CalendarViewModel(MealServices mealServices, ICalendarService calendarService,
+            IShoppingService shoppingService)
         {
             this.mealServices = mealServices;
             this.calendarService = calendarService;
@@ -209,12 +209,12 @@ namespace MealApp.ViewModels
         private bool isAddButtonEnabled;
 
         private readonly MealServices mealServices;
-        private readonly CalendarService calendarService;
+        private readonly ICalendarService calendarService;
 
         [ObservableProperty]
         private bool isCalendarView = true;
 
-        private readonly ShoppingService shoppingService;
+        private readonly IShoppingService shoppingService;
         private DateTime currentDate = DateTime.Today;
     }
 }

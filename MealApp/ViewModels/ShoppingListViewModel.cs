@@ -20,7 +20,7 @@ namespace MealApp.ViewModels
 
         public bool IsEmpty => !ShoppingItems.Any();
 
-        public ShoppingListViewModel(CalendarService calendarService, ShoppingService shoppingService)
+        public ShoppingListViewModel(ICalendarService calendarService, IShoppingService shoppingService)
         {
             this.calendarService = calendarService;
             this.shoppingService = shoppingService;
@@ -130,8 +130,8 @@ namespace MealApp.ViewModels
         [ObservableProperty]
         private string weekLabel = string.Empty;
 
-        private readonly CalendarService calendarService;
-        private readonly ShoppingService shoppingService;
+        private readonly ICalendarService calendarService;
+        private readonly IShoppingService shoppingService;
         private int weekOffset = 0;
 
     }

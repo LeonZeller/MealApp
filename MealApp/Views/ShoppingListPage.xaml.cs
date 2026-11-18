@@ -7,7 +7,7 @@ namespace MealApp.Views;
 
 public partial class ShoppingListPage : ContentPage
 {
-    public ShoppingListPage(CalendarService calendarService, ShoppingService shoppingService)
+    public ShoppingListPage(ICalendarService calendarService, IShoppingService shoppingService)
     {
         InitializeComponent();
         this.shoppingService = shoppingService;
@@ -84,7 +84,7 @@ public partial class ShoppingListPage : ContentPage
     }
 
     private readonly ShoppingListViewModel viewModel;
-    private readonly ShoppingService shoppingService;
+    private readonly IShoppingService shoppingService;
 
     
 }

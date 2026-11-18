@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace MealApp.Services
 {
-    public class ShoppingService
+    public class ShoppingService : IShoppingService
     {
         public ObservableCollection<CustomShoppingItem> CustomItems { get; } = new();
 

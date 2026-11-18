@@ -9,7 +9,7 @@ using MealApp.Models;
 
 namespace MealApp.Services
 {
-    public class CalendarService
+    public class CalendarService : ICalendarService
     {
         public CalendarService(DatabaseService databaseService)
         {
@@ -39,12 +39,6 @@ namespace MealApp.Services
             await databaseService.DeleteCalendarEntryAsync(entry);
             Entries.Remove(entry);
         }
-
-
-
-
-
-
 
         private readonly DatabaseService databaseService;
 

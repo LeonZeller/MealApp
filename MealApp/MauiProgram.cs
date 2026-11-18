@@ -12,13 +12,13 @@ namespace MealApp
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>();
 
-            builder.Services.AddSingleton<CalendarService>();
+            builder.Services.AddSingleton<ICalendarService, CalendarService>();
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<MealServices>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<CalendarPage>();
             builder.Services.AddSingleton<ShoppingListPage>();
-            builder.Services.AddSingleton<ShoppingService>();           
+            builder.Services.AddSingleton<IShoppingService, ShoppingService>();           
             builder.Services.AddTransient<SettingsPage>();
             builder.Services.AddTransient<BackupSettingsPage>();
             builder.UseMauiApp<App>().UseWheelPicker();

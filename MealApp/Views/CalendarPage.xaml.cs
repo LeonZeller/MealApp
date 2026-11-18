@@ -7,8 +7,8 @@ namespace MealApp.Views;
 
 public partial class CalendarPage : ContentPage
 {
-    public CalendarPage(MealServices mealServices, CalendarService calendarService, 
-        ShoppingService shoppingService)
+    public CalendarPage(MealServices mealServices, ICalendarService calendarService, 
+        IShoppingService shoppingService)
     {
         InitializeComponent();
         viewModel = new CalendarViewModel(mealServices, calendarService, shoppingService);

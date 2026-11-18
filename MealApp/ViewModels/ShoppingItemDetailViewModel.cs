@@ -25,7 +25,7 @@ namespace MealApp.ViewModels
             new IntervalOption { Label = "Alle 8 Wochen", Weeks = 8 }
         };
 
-        public ShoppingItemDetailViewModel(ShoppingService shoppingService, CustomShoppingItem? itemToEdit = null)
+        public ShoppingItemDetailViewModel(IShoppingService shoppingService, CustomShoppingItem? itemToEdit = null)
         {
             this.shoppingService = shoppingService;
             this.itemToEdit = itemToEdit;
@@ -90,7 +90,7 @@ namespace MealApp.ViewModels
         [ObservableProperty]
         private IntervalOption? selectedInterval;
 
-        private readonly ShoppingService shoppingService;
+        private readonly IShoppingService shoppingService;
         private CustomShoppingItem itemToEdit;
     }
 

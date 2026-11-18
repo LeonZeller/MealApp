@@ -10,7 +10,7 @@ namespace MealApp.ViewModels
         public string DayLabel => date.ToString("dddd, dd.MM.yyyy");
 
 
-        public DayViewModel(DateTime date, CalendarService calendarService)
+        public DayViewModel(DateTime date, ICalendarService calendarService)
         {
             this.date = date;
             this.calendarService = calendarService;
@@ -34,6 +34,6 @@ namespace MealApp.ViewModels
         [ObservableProperty]
         private List<CalendarEvent> systemEvents = new();
 
-        private readonly CalendarService calendarService;
+        private readonly ICalendarService calendarService;
     }
 }
