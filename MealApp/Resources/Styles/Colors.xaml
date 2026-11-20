@@ -25,6 +25,18 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    
+    <Color x:Key="TextPrimaryLight">#2E2723</Color>
+    <Color x:Key="TextPrimaryDark">#F2EDE8</Color>
+
+    <Color x:Key="TextSecondaryLight">#7A6E64</Color>
+    <Color x:Key="TextSecondaryDark">#B5AAA0</Color>
+
+    <Color x:Key="CardBackgroundLight">#FFFFFF</Color>
+    <Color x:Key="CardBackgroundDark">#2A2522</Color>
+
+    <Color x:Key="DividerLight">#E1E1E1</Color>
+    <Color x:Key="DividerDark">#3A3430</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>

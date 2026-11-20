@@ -28,10 +28,14 @@
             </Style>
 
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
                 <Style.Behaviors>
                     <behaviors:DismissKeyboardOnTapBehavior/>
                 </Style.Behaviors>
             </Style>
+
+
 
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:BoolToColorConverter x:Key="BoolToColorConverter"
