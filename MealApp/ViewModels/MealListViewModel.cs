@@ -21,7 +21,7 @@ namespace MealApp.ViewModels
         {
             this.mealServices = mealServices;
             Title = "Gerichte";
-            MaxPrepTime = 180;
+            MaxPrepTime = MealFilterOptions.NoTimeLimit;
 
             FilteredMeals.CollectionChanged += (s, e) => OnPropertyChanged(nameof(IsEmpty));
 
@@ -73,8 +73,7 @@ namespace MealApp.ViewModels
             SearchText = string.Empty;
             IngredientText = string.Empty;
             OnlyVegan = false;
-            MaxPrepTime = 180;
-            
+            MaxPrepTime = MealFilterOptions.NoTimeLimit;
         }
 
         [RelayCommand]
@@ -101,29 +100,14 @@ namespace MealApp.ViewModels
         {
             FilteredMeals.Clear();
 
-            var filtered = mealServices.Meals
-                .Where(m => m.IsComponent == IsComponentView)
-                .AsEnumerable();
-
-            if (!string.IsNullOrWhiteSpace(SearchText))
+            var filtered = mealFilter.Apply(mealServices.Meals, new MealFilterOptions
             {
-                filtered = filtered.Where(m => m.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (!string.IsNullOrWhiteSpace(IngredientText))
-            {
-                filtered = filtered.Where(m => m.Ingredients.Any(i => i.Name.Contains(IngredientText, StringComparison.OrdinalIgnoreCase)));
-            }
-
-            if (OnlyVegan)
-            {
-                filtered = filtered.Where(m => m.Vegan);
-            }
-
-            if (MaxPrepTime < 180)
-            {
-                filtered = filtered.Where(m => m.PreperationTime <= MaxPrepTime);
-            }
+                IsComponentView = IsComponentView,
+                SearchText = SearchText,
+                IngredientText = IngredientText,
+                OnlyVegan = OnlyVegan,
+                MaxPrepTime = MaxPrepTime
+            });
 
             foreach (var meal in filtered)
             {
@@ -133,7 +117,7 @@ namespace MealApp.ViewModels
             HasActiveFilters = !string.IsNullOrWhiteSpace(SearchText)
                 || !string.IsNullOrWhiteSpace(IngredientText)
                 || OnlyVegan
-                || MaxPrepTime < 180;
+                || MaxPrepTime < MealFilterOptions.NoTimeLimit;
 
             ActiveFiltersLabel = buildActiveFiltersLabel();
         }
@@ -166,5 +150,6 @@ namespace MealApp.ViewModels
         private bool isComponentView;
 
         private readonly MealServices mealServices;
+        private readonly MealFilter mealFilter = new MealFilter();
     }
 }
