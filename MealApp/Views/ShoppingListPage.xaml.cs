@@ -7,7 +7,7 @@ namespace MealApp.Views;
 
 public partial class ShoppingListPage : ContentPage
 {
-    public ShoppingListPage(CalendarService calendarService, ShoppingService shoppingService)
+    public ShoppingListPage(ICalendarService calendarService, IShoppingService shoppingService)
     {
         InitializeComponent();
         this.shoppingService = shoppingService;
@@ -18,26 +18,47 @@ public partial class ShoppingListPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await viewModel.LoadCommand.ExecuteAsync(null);
+        try
+        {
+            await viewModel.LoadCommand.ExecuteAsync(null);
+        }
+        catch (Exception ex)
+        {
+            await PopupService.ShowErrorAsync("Fehler", "Einkaufsliste konnte nicht geladen werden: " + ex.Message);
+        }
     }
 
     private async void OnItemChecked(object sender, CheckedChangedEventArgs e)
     {
         if (!e.Value) return;
 
-        var checkBox = (CheckBox)sender;
-        var item = (ShoppingItem)checkBox.BindingContext;
-        await viewModel.CheckItem(item);
+        try
+        {
+            var checkBox = (CheckBox)sender;
+            var item = (ShoppingItem)checkBox.BindingContext;
+            await viewModel.CheckItem(item);
+        }
+        catch (Exception ex)
+        {
+            await PopupService.ShowErrorAsync("Fehler", "Artikel konnte nicht abgehakt werden: " + ex.Message);
+        }
     }
 
     private async void OnDeleteItemSwiped(object sender, EventArgs e)
     {
-        var swipeItem = (SwipeItem)sender;
-        var item = (ShoppingItem)swipeItem.BindingContext;
-
-        if (item.IsCustom && item.CustomItem != null)
+        try
         {
-            await viewModel.DeleteCustomItem(item.CustomItem);
+            var swipeItem = (SwipeItem)sender;
+            var item = (ShoppingItem)swipeItem.BindingContext;
+
+            if (item.IsCustom && item.CustomItem != null)
+            {
+                await viewModel.DeleteCustomItem(item.CustomItem);
+            }
+        }
+        catch (Exception ex)
+        {
+            await PopupService.ShowErrorAsync("Fehler", "Artikel konnte nicht gelöscht werden: " + ex.Message);
         }
     }
 
@@ -63,7 +84,7 @@ public partial class ShoppingListPage : ContentPage
     }
 
     private readonly ShoppingListViewModel viewModel;
-    private readonly ShoppingService shoppingService;
+    private readonly IShoppingService shoppingService;
 
     
 }
