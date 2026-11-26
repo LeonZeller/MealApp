@@ -23,21 +23,21 @@
                 Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
                 HeightRequest="200"
                 Aspect="AspectFill"
-                BackgroundColor="LightGray"/>
+                BackgroundColor="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
             <HorizontalStackLayout Spacing="10">
                 <Button Text="Bild auswählen"
                     Clicked="OnPickImageClicked"
                     HorizontalOptions="Fill"/>
                 <Button Text="Bild entfernen"
                     Clicked="OnRemoveImageClicked"
-                    BackgroundColor="LightGray"
-                    TextColor="Black"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"
+                    TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
                     HorizontalOptions="Fill"
                     IsVisible="{Binding HasImage}"/>
             </HorizontalStackLayout>
 
             <Label Text="Zubereitungsschritte" FontAttributes="Bold"/>
-            <Label Text="Jeden Schritt in eine neue Zeile schreiben" TextColor="Gray" FontSize="12"/>
+            <Label Text="Jeden Schritt in eine neue Zeile schreiben" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}" FontSize="12"/>
             <Editor x:Name="StepsEntry"
                     Text="{Binding Steps}"
                     Placeholder="z.B. Nudeln kochen..."

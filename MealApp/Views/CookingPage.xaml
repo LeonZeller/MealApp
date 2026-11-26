@@ -7,11 +7,11 @@
         <VerticalStackLayout Grid.Row="0" Spacing="5" Margin="0,20,0,30">
             <Label Text="{Binding MealName}"
                    FontSize="18"
-                   TextColor="Gray"
+                   TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
                    HorizontalOptions="Center"/>
             <Label Text="{Binding StepProgress}"
                    FontSize="14"
-                   TextColor="Gray"
+                   TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
                    HorizontalOptions="Center"/>
             <ProgressBar Progress="{Binding ProgressValue}"
                          HeightRequest="6"

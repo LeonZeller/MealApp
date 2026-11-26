@@ -7,11 +7,11 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="10">
 
-            <Border StrokeShape="RoundRectangle 8" Stroke="LightGray" StrokeThickness="0.5" Padding="0">
+            <Border StrokeShape="RoundRectangle 8" Stroke="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}" StrokeThickness="0.5" Padding="0">
                 <VerticalStackLayout>
                     
 
-                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
 
                     <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
                         <Grid.GestureRecognizers>
@@ -19,10 +19,10 @@
                         </Grid.GestureRecognizers>
                         <Label Grid.Column="0" Text="🎨" FontSize="24" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="Erscheinungsbild" VerticalOptions="Center" FontSize="15"/>
-                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                     </Grid>
 
-                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
 
                     <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
                         <Grid.GestureRecognizers>
@@ -30,10 +30,10 @@
                         </Grid.GestureRecognizers>
                         <Label Grid.Column="0" Text="👥" FontSize="24" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="Personen einladen" VerticalOptions="Center" FontSize="15"/>
-                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                     </Grid>
 
-                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
 
                     <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
                         <Grid.GestureRecognizers>
@@ -41,10 +41,10 @@
                         </Grid.GestureRecognizers>
                         <Label Grid.Column="0" Text="💾" FontSize="24" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="Datenexport &amp; Backup" VerticalOptions="Center" FontSize="15"/>
-                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                     </Grid>
 
-                    <BoxView HeightRequest="0.5" Color="LightGray"/>
+                    <BoxView HeightRequest="0.5" Color="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
 
                     <Grid Padding="15" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
                         <Grid.GestureRecognizers>
@@ -52,7 +52,7 @@
                         </Grid.GestureRecognizers>
                         <Label Grid.Column="0" Text="ℹ️" FontSize="24" VerticalOptions="Center"/>
                         <Label Grid.Column="1" Text="Über die App" VerticalOptions="Center" FontSize="15"/>
-                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="Gray"/>
+                        <Label Grid.Column="2" Text="›" VerticalOptions="Center" FontSize="20" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                     </Grid>
                 </VerticalStackLayout>
             </Border>

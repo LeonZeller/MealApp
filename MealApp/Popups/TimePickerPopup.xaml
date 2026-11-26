@@ -6,7 +6,7 @@
              BackgroundColor="#80000000">
 
     <Grid VerticalOptions="Center" HorizontalOptions="Center">
-        <Frame BackgroundColor="White"
+        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}"
                CornerRadius="15"
                Padding="20"
                WidthRequest="300">
@@ -38,8 +38,8 @@
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                     <Button Text="Abbrechen"
                             Clicked="OnCancelClicked"
-                            BackgroundColor="LightGray"
-                            TextColor="Black"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"
+                            TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"
                             WidthRequest="120"/>
                     <Button Text="OK"
                             Clicked="OnOkClicked"

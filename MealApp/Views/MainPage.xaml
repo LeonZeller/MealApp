@@ -91,10 +91,10 @@
                        FontSize="18"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
-                       TextColor="#2E2723"/>
+                       TextColor="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}"/>
                 <Label Text="Tippe auf + um deinen ersten Eintrag anzulegen"
                        FontSize="14"
-                       TextColor="#7A6E64"
+                       TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
                        HorizontalOptions="Center"
                        HorizontalTextAlignment="Center"/>
             </VerticalStackLayout>
@@ -120,10 +120,10 @@
                             </SwipeView.RightItems>
 
                             <Border StrokeShape="RoundRectangle 12"
-                                    Stroke="LightGray"
+                                    Stroke="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"
                                     StrokeThickness="0.5"
                                     Padding="0"
-                                    BackgroundColor="White">
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OnMealButtonClicked"/>
                                 </Border.GestureRecognizers>
@@ -132,7 +132,7 @@
                                     <Image Grid.Row="0"
                                            Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
                                            Aspect="AspectFill"
-                                           BackgroundColor="LightGray"/>
+                                           BackgroundColor="{AppThemeBinding Light={StaticResource DividerLight}, Dark={StaticResource DividerDark}}"/>
                                     <Grid Grid.Row="1" Padding="14,12" ColumnDefinitions="*, Auto">
                                         <VerticalStackLayout Grid.Column="0" Spacing="2">
                                             <Label Text="{Binding Name}"
@@ -140,7 +140,7 @@
                                                    FontAttributes="Bold"/>
                                             <Label Text="{Binding PreperationTime, StringFormat='⏱ {0} Minuten'}"
                                                    FontSize="13"
-                                                   TextColor="Gray"/>
+                                                   TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                                         </VerticalStackLayout>
                                         <Label Grid.Column="1"
                                                Text="🌱"

@@ -7,7 +7,7 @@
     <VerticalStackLayout Padding="20" Spacing="20">
 
         <Label Text="Exportiere deine Daten als Backup-Datei oder importiere ein vorhandenes Backup."
-               TextColor="Gray"
+               TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
                FontSize="13"/>
 
         <Button Text="Backup exportieren"

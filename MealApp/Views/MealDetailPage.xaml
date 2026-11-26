@@ -29,9 +29,9 @@
                         <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
                             <Label Text="{Binding Name}" VerticalOptions="Center"/>
                             <Label Grid.Column="1" Text="{Binding Amount}"
-                                   VerticalOptions="Center" TextColor="Gray"/>
+                                   VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                             <Label Grid.Column="2" Text="{Binding Unit}"
-                                   VerticalOptions="Center" TextColor="Gray"/>
+                                   VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"/>
                         </Grid>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
